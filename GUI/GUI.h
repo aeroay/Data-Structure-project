@@ -82,10 +82,9 @@ private:
 	void DrawSingleItem(const DrawingItem* pDitem, int RegionCount) const;		//draws ONE item 
 	void DrawAllItems() ;		//drwas ALL items in DrawingList
 
-	void DrawString(const int iX, const int iY, const string Text); // prints a message in the passed coordinates
+	
 	void DrawCastleArea() const;	    // draws the Castle area
 
-	void ClearStatusBar() const;    // clears the status bar
 	void ClearDrawingArea() const;	// clears the Drawing area from all drawings
 
 public:
@@ -104,7 +103,8 @@ public:
 	void ResetDrawingList();		//resets drawing list (should be called every timestep after drawing)
 
 	PROG_MODE getGUIMode() const;			//returns the mode of the program
-
+	void ClearStatusBar() const;    // clears the status bar
+	void DrawString(const int iX, const int iY, const string Text); // prints a message in the passed coordinates
 };
 
 #endif

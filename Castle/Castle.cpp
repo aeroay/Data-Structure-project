@@ -37,3 +37,4 @@ void Castle::setMaxShoot(int max)
 {
 	this->maxShoot = max;
 }
+

@@ -29,24 +29,30 @@ Castle * Battle::GetCastle()
 	return &pCastle;
 }
 
+GUI* Battle::getGUI()
+{
+	return pGUI;
+}
+
 
 void Battle::RunSimulation()
 {
 	pGUI = new GUI;
-	PROG_MODE	mode = pGUI->getGUIMode();
+	PROG_MODE mode = pGUI->getGUIMode();
 		
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
 		GUImode(MODE_INTR);
 		break;
+
 	case MODE_STEP:
 		GUImode(MODE_STEP);
 		break;
+
 	case MODE_SLNT:
 		GUImode(MODE_SLNT);
 		break;	
-
 	}
 
 	delete pGUI;
@@ -222,6 +228,28 @@ void Battle::GUImode(PROG_MODE mode)
 
 	}
 }
+
+void Battle::updateWarStatus()
+{
+	string ts = "Current time step is: ";
+	string ch = "Castle health: ";
+	string cs = "and its status: ";
+	string actv = "Number of active: ";
+	string frz = "Number of frozen: ";
+	string kld = "Number of killed: ";
+
+	GUI* gui = this->getGUI();
+	gui->ClearStatusBar();
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 5),"hi" );
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 30), ch); // You may need to change these coordinates later 
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 55), actv); // You may need to change these coordinates later 
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 80), frz); // You may need to change these coordinates later 
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 105), kld); // You may need to change these coordinates later 
+
+}
+
+
+
 
 void Battle::loadEnemy()
 {

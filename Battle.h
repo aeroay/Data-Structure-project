@@ -34,6 +34,10 @@ private:
 	Enemy* DemoList[MaxEnemyCount];	//Important: This is just for demo
 	/// ==>
 
+	const int WindWidth = 1200, WindHeight = 650,		//Window width and height
+		StatusBarHeight = 150,	//Status Bar Height
+		MenuBarHeight = 0,		//Menu Bar Height (distance from top of window to bottom line of menu bar)
+		MenuItemWidth = 80;	//Width of each item in menu bar menu
 
 	//
 	// TODO: Add More Data Members As Needed
@@ -44,6 +48,7 @@ public:
 	Battle();
 	void AddAllListsToDrawingList();		//Add enemy lists (inactive, active,.....) to drawing list to be displayed on user interface
 	Castle * GetCastle();
+	GUI* getGUI();
 	void RunSimulation();
 	void ActivateEnemies();		//check the inactive list and activate all enemies that has arrived
 
@@ -61,5 +66,6 @@ public:
 	int getMaxEnemy()const;
 	void PrintWarAftermath();
 	void GUImode(PROG_MODE mode);
+	void updateWarStatus();
 };
 

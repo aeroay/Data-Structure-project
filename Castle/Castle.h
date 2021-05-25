@@ -22,5 +22,6 @@ public:
 	void SetPower(double p);
 	double GetPower() const;
 	void setMaxShoot(int max);
+	
 };
 

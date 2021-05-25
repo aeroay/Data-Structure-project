@@ -1,19 +1,4 @@
 ﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Battle.cpp
-C:\Users\Lorda\OneDrive\Documents\GitHub\BattleGame\Battle.cpp(148,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
-  Compiling...
-  Healer.cpp
-  Freezer.cpp
-  Fighter.cpp
-  Enemy.cpp
-  Demo_Main.cpp
-  Generating Code...
-C:\Users\Lorda\OneDrive\Documents\GitHub\BattleGame\Enemies\Fighter.cpp(34): warning C4715: 'Fighter::IsFrozen': not all control paths return a value
-C:\Users\Lorda\OneDrive\Documents\GitHub\BattleGame\Enemies\Freezer.cpp(31): warning C4715: 'Freezer::IsFrozen': not all control paths return a value
-C:\Users\Lorda\OneDrive\Documents\GitHub\BattleGame\Enemies\Healer.cpp(31): warning C4715: 'Healer::IsFrozen': not all control paths return a value
-  Skipping... (no relevant changes detected)
-  LinkedList.cpp
-  LLNode.cpp
   GUI.cpp
-  CastleDSProject.vcxproj -> C:\Users\Lorda\OneDrive\Documents\GitHub\BattleGame\Debug\CastleDSProject.exe
+C:\Users\Lorda\OneDrive\Documents\GitHub\DSproject\GUI\GUI.cpp(248,3): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _itoa. See online help for details.
+  CastleDSProject.vcxproj -> C:\Users\Lorda\OneDrive\Documents\GitHub\DSproject\Debug\CastleDSProject.exe

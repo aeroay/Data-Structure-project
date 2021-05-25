@@ -1,1 +1,2 @@
 C:\Users\Lorda\OneDrive\Documents\GitHub\BattleGame\Debug\CastleDSProject.exe
+C:\Users\Lorda\OneDrive\Documents\GitHub\DSproject\Debug\CastleDSProject.exe
