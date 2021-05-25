@@ -38,21 +38,14 @@ void Battle::RunSimulation()
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
-
-		/*============================================*/
-		/*The Simuation function will be written here*/
-		/*===========================================*/
-		// Jus_A_Demo() is currently commented
-
+		GUImode(MODE_INTR);
 		break;
 	case MODE_STEP:
+		GUImode(MODE_STEP);
 		break;
 	case MODE_SLNT:
-		break;
-	case MODE_DEMO:
-		Just_A_Demo();
-		break;
-		
+		GUImode(MODE_SLNT);
+		break;	
 
 	}
 
@@ -209,6 +202,24 @@ void Battle::PrintWarAftermath()
 	else
 	{
 		// game is won
+	}
+}
+
+void Battle::GUImode(PROG_MODE mode)
+{
+	Just_A_Demo();
+	// to be implemented
+	if (mode == MODE_INTR)
+	{
+
+	}
+	else if (mode == MODE_STEP)
+	{
+
+	}
+	else // silent mode
+	{
+
 	}
 }
 

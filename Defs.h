@@ -22,7 +22,7 @@ enum ENMY_TYPE	//types of enemies
 enum CASTLE_STATUS
 {
 	ACTIVE,		// Active (has arrived and involved in the battle)
-	FROSTED,		// Frosted
+	FROSTED,	// Frosted
 	DSTRD		// Destroyed
 };
 
@@ -42,7 +42,7 @@ enum PROG_MODE	//mode of the program interface
 	MODE_INTR,	//interactive mode
 	MODE_STEP,	//Step-by-step mode
 	MODE_SLNT,	//Silent mode
-	MODE_DEMO,	//Demo mode (for introductory phase only, should be removed in phases 1&2)
+	//MODE_DEMO,	//Demo mode (for introductory phase only, should be removed in phases 1&2)
 	MODE_CNT	//number of possible modes
 };
 

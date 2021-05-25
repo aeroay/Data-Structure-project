@@ -49,8 +49,9 @@ public:
 	void setSpeed(int x);
 	// Virtual Functions: ----------------
 
-	//virtual void Move() = 0;	//All enemies can move
-	//virtual void Act() = 0;	//Acting means fighting or healing
+	/*virtual void Fight() = 0;
+	virtual void Heal() = 0;
+	virtual void Freeze() = 0;*/
 
 	//
 	// TODO: Add More Member Functions As Needed

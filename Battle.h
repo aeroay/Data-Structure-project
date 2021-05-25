@@ -60,5 +60,6 @@ public:
 	void setMaxEnemy(int max);
 	int getMaxEnemy()const;
 	void PrintWarAftermath();
+	void GUImode(PROG_MODE mode);
 };
 
