@@ -5,15 +5,16 @@
 class Fighter :
     public Enemy
 {
-    double		priorty;
+    int		priorty;
 public:
     Fighter(int id, int arrTime, int rld, int hlth, int pow, int spd);
     ~Fighter();
-    void Act();
-    void Move();
+    void Fight();
+    void March();
     bool IsFrozen();
     void SetHealth(double h);
     double GetHealth() const;
+    int getPriorty()const;
 
 };
 

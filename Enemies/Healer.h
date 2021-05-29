@@ -9,8 +9,8 @@ class Healer :
     public:
         Healer(int id, int arrTime, int rld, int hlth, int pow, int spd);
         ~Healer();
-        void Act();
-        void Move();
+        void Heal();
+        void March();
         bool IsFrozen();
         void SetHealth(double h);
         double GetHealth() const;

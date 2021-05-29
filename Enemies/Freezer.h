@@ -7,8 +7,8 @@ class Freezer :
 public:
     Freezer(int id, int arrTime, int rld, int hlth, int pow, int spd);
     ~Freezer();
-    void Act();
-    void Move();
+    void Freeze();
+    void March();
     bool IsFrozen();
     void SetHealth(double h);
     double GetHealth() const;

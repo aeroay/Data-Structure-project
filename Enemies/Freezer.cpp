@@ -12,11 +12,12 @@ Freezer::~Freezer()
 {
 }
 
-void Freezer::Act()
+void Freezer::Freeze()
 {
 }
 
-void Freezer::Move()
+
+void Freezer::March()
 {
 	if (!IsFrozen())
 	{

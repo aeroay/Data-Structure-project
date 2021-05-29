@@ -12,11 +12,11 @@ Healer::~Healer()
 {
 }
 
-void Healer::Act()
+void Healer::Heal()
 {
 }
 
-void Healer::Move()
+void Healer::March()
 {
 	if (!IsFrozen())
 	{

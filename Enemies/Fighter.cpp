@@ -7,6 +7,9 @@ Fighter::Fighter(int id, int arrTime, int rld, int hlth, int pow, int spd) :Enem
 	this-> rldPeriod = rld;
 	this->power=pow;
 	this->speed=spd;
+
+	priorty = sqrt(2) * pow * spd * hlth / rld;
+
 }
 
 Fighter::~Fighter()
@@ -14,12 +17,12 @@ Fighter::~Fighter()
 
 }
 
-void Fighter::Act()
+void Fighter::Fight()
 {
-
 }
 
-void Fighter::Move()
+
+void Fighter::March()
 {
 	if (!IsFrozen())
 	{
@@ -44,4 +47,9 @@ void Fighter::SetHealth(double h)
 double Fighter::GetHealth() const
 {
 	return Health;
+}
+
+int Fighter::getPriorty() const
+{
+	return priorty;
 }
