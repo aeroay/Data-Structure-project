@@ -29,8 +29,9 @@ private:
 	Queue<Enemy*> Q_Inactive;		//Queue of inactive enemies
 	PQueue<Fighter*> Q_Fighter;		//Queue of fighter 
 	PQueue<Enemy*> Q_Frozen;		//Queue of frosted enemies 
-	Stack<Healer*> S_Healer;
-	Queue<Freezer*> Q_Freezer;
+	Stack<Healer*> S_Healer;		//stack of healer type
+	Queue<Freezer*> Q_Freezer;      // queue of freezer type 
+	Queue<Enemy*> Q_Killed;			//queue of killed enimes
 
 	
 
