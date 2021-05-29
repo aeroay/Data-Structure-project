@@ -239,18 +239,40 @@ void Battle::updateWarStatus(int CurrentTimeStep)
 	string frz = "Number of frozen: ";
 	string kld = "Number of killed: ";
 
+	Castle* c = this->GetCastle();
 	GUI* gui = this->getGUI();
 	gui->ClearStatusBar();
-	char strTimestep[10];
-	itoa(CurrentTimeStep, strTimestep, 10);
+
+	
+	string strTimestep = to_string(CurrentTimeStep);
+	string c_health = to_string(c->GetHealth());
+	string actv_E = to_string(getActv_E());
+	string frz_E = to_string(getFrz_E());
+	string kld_E = to_string(getKld_E());
+	
 
 
 	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 5), ts + strTimestep);
-	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 30), ch); // You may need to change these coordinates later 
-	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 55), actv); // You may need to change these coordinates later 
-	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 80), frz); // You may need to change these coordinates later 
-	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 105), kld); // You may need to change these coordinates later 
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 30), ch+ c_health);
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 55), actv+ actv_E);
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 80), frz+ frz_E);
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 105), kld+ kld_E);
 
+}
+
+int Battle::getActv_E() const
+{
+	return ActiveCount;
+}
+
+int Battle::getFrz_E() const
+{
+	return FrostedCount;
+}
+
+int Battle::getKld_E() const
+{
+	return KilledCount;
 }
 
 
