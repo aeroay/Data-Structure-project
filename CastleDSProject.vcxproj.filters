@@ -152,13 +152,7 @@
     <ClCompile Include="Generic_DS\LinkedList.cpp">
       <Filter>Generic_DS</Filter>
     </ClCompile>
-    <ClCompile Include="Generic_DS\LinkedSortedList.cpp">
-      <Filter>Generic_DS</Filter>
-    </ClCompile>
     <ClCompile Include="Generic_DS\LLNode.cpp">
-      <Filter>Generic_DS</Filter>
-    </ClCompile>
-    <ClCompile Include="Generic_DS\PQueue.cpp">
       <Filter>Generic_DS</Filter>
     </ClCompile>
   </ItemGroup>
@@ -252,9 +246,6 @@
     <ClInclude Include="Generic_DS\LinkedList.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
-    <ClInclude Include="Generic_DS\LinkedSortedList.h">
-      <Filter>Generic_DS</Filter>
-    </ClInclude>
     <ClInclude Include="Generic_DS\LLNode.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
@@ -262,6 +253,9 @@
       <Filter>Generic_DS</Filter>
     </ClInclude>
     <ClInclude Include="Generic_DS\Stack.h">
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Generic_DS\nodeP.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
   </ItemGroup>

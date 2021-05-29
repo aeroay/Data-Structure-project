@@ -274,9 +274,7 @@
     <ClCompile Include="Enemies\Freezer.cpp" />
     <ClCompile Include="Enemies\Healer.cpp" />
     <ClCompile Include="Generic_DS\LinkedList.cpp" />
-    <ClCompile Include="Generic_DS\LinkedSortedList.cpp" />
     <ClCompile Include="Generic_DS\LLNode.cpp" />
-    <ClCompile Include="Generic_DS\PQueue.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +306,9 @@
     <ClInclude Include="Enemies\Freezer.h" />
     <ClInclude Include="Enemies\Healer.h" />
     <ClInclude Include="Generic_DS\LinkedList.h" />
-    <ClInclude Include="Generic_DS\LinkedSortedList.h" />
     <ClInclude Include="Generic_DS\LLNode.h" />
     <ClInclude Include="Generic_DS\Node.h" />
+    <ClInclude Include="Generic_DS\nodeP.h" />
     <ClInclude Include="Generic_DS\PQueue.h" />
     <ClInclude Include="Generic_DS\Queue.h" />
     <ClInclude Include="Generic_DS\Stack.h" />

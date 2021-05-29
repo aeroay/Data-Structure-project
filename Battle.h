@@ -6,6 +6,8 @@
 #include "Enemies\Healer.h"
 #include "Castle\Castle.h"
 #include "Generic_DS\Queue.h"
+#include "Generic_DS\Stack.h"
+#include "Generic_DS\PQueue.h"
 #include "GUI\GUI.h"
 
 // it is the controller of the project
@@ -25,7 +27,12 @@ private:
 											// then pass the pointers list to the GUI function
 
 	Queue<Enemy*> Q_Inactive;		//Queue of inactive enemies
+	PQueue<Fighter*> Q_Fighter;		//Queue of fighter 
+	PQueue<Enemy*> Q_Frozen;		//Queue of frosted enemies 
+	Stack<Healer*> S_Healer;
+	Queue<Freezer*> Q_Freezer;
 
+	
 
 	/// ==> 
 	//	DEMO-related members. Should be removed in phases 1&2
