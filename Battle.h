@@ -73,6 +73,6 @@ public:
 	int getMaxEnemy()const;
 	void PrintWarAftermath();
 	void GUImode(PROG_MODE mode);
-	void updateWarStatus();
+	void updateWarStatus(int CurrentTimeStep);
 };
 

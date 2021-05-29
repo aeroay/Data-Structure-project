@@ -98,6 +98,7 @@ void Battle::Just_A_Demo()
 		pGUI->waitForClick();
 		AddAllListsToDrawingList();
 		pGUI->UpdateInterface(CurrentTimeStep);
+		updateWarStatus(CurrentTimeStep);
 		Sleep(250);
 	}		
 }
@@ -229,7 +230,7 @@ void Battle::GUImode(PROG_MODE mode)
 	}
 }
 
-void Battle::updateWarStatus()
+void Battle::updateWarStatus(int CurrentTimeStep)
 {
 	string ts = "Current time step is: ";
 	string ch = "Castle health: ";
@@ -240,7 +241,11 @@ void Battle::updateWarStatus()
 
 	GUI* gui = this->getGUI();
 	gui->ClearStatusBar();
-	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 5),"hi" );
+	char strTimestep[10];
+	itoa(CurrentTimeStep, strTimestep, 10);
+
+
+	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 5), ts + strTimestep);
 	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 30), ch); // You may need to change these coordinates later 
 	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 55), actv); // You may need to change these coordinates later 
 	gui->DrawString(10, WindHeight - (int)(StatusBarHeight - 80), frz); // You may need to change these coordinates later 
