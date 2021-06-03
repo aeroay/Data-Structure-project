@@ -132,7 +132,22 @@ void Battle::ActivateEnemies()
 				
 		Q_Inactive.dequeue(pE);	//remove enemy from the queue
 		pE->SetStatus(ACTV);	//make status active
-		AddtoDemoList(pE);		//move it to demo list (for demo purposes)
+		//AddtoDemoList(pE);		//move it to demo list (for demo purposes)
+
+		Fighter* pFtr = dynamic_cast<Fighter*>(pE);
+		Healer* pHlr = dynamic_cast<Healer*>(pE);
+		Freezer* pFrz = dynamic_cast<Freezer*>(pE);
+
+		if (pFtr != NULL)
+			Q_Fighter.enPQueue(pFtr, pFtr->getPriorty());
+		
+		if (pHlr != NULL)
+			S_Healer.push(pHlr);
+
+		if (pFrz != NULL)
+			Q_Freezer.enqueue(pFrz);
+	
+		
 	}
 }
 
@@ -280,7 +295,9 @@ int Battle::getKld_E() const
 
 void Battle::loadEnemy()
 {
-	ifstream file("input.txt");
+	pGUI->PrintMessage("Please Enter The input file name, without .txt");
+	string fileName = pGUI->GetString(); //file name to be input by the user
+	ifstream file(fileName + ".txt");
 
 	int CH; //Castle Health
 	int CP; // Castle Power

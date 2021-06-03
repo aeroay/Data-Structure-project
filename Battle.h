@@ -78,6 +78,7 @@ public:
 	int getActv_E()const;
 	int getFrz_E()const;
 	int getKld_E()const;						// returns no.of enemies(Active, Frosted, killed so far)
+	
 
 
 };
