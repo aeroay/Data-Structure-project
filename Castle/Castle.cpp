@@ -1,4 +1,5 @@
 #include "Castle.h"
+#include <cmath>
 
 void Castle::SetHealth(double h)
 {
@@ -36,5 +37,22 @@ double Castle::GetPower() const
 void Castle::setMaxShoot(int max)
 {
 	this->maxShoot = max;
+}
+
+void Castle::attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers,  int currTimeStep)
+{
+	shootBullets(fighters, freezers, healers, currTimeStep);
+	shootIce(fighters, freezers, healers, currTimeStep);
+
+}
+
+void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep)
+{
+
+}
+
+void Castle::shootIce(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep)
+{
+
 }
 

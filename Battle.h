@@ -59,6 +59,8 @@ public:
 	GUI* getGUI();
 	void RunSimulation();
 	void ActivateEnemies();					//check the inactive list and activate all enemies that has arrived
+	void updateEnemies();
+	void RunMode(string, int);
 
 
 	void AddtoDemoList(Enemy* Ptr);		//Add Enemy to the demo queue of enemies (for demo purposes only)

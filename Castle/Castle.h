@@ -1,5 +1,13 @@
 #pragma once
 #include "..\Defs.h"
+#include "..\Enemies\Enemy.h"
+#include "..\Enemies\Fighter.h"
+#include "..\Enemies\Freezer.h"
+#include "..\Enemies\Healer.h"
+#include "..\Generic_DS\Queue.h"
+#include "..\Generic_DS\Stack.h"
+#include "..\Generic_DS\PQueue.h"
+
 class Castle
 {
 	double			Health;
@@ -22,6 +30,9 @@ public:
 	void SetPower(double p);
 	double GetPower() const;
 	void setMaxShoot(int max);
-	
+	void attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep);
+	void shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep);
+	void shootIce(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers,  int currTimeStep);
+
 };
 

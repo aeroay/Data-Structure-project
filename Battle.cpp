@@ -151,6 +151,62 @@ void Battle::ActivateEnemies()
 	}
 }
 
+void Battle::updateEnemies()
+{
+}
+
+void Battle::RunMode(string mode_name, int flag)
+{
+	
+	pGUI->PrintMessage("Welcome to "+ mode_name +" Mode, click to continue");
+	pGUI->waitForClick();
+
+	loadEnemy();
+	pGUI->PrintMessage("Generating Enemies from the file ... CLICK to continue");
+	pGUI->waitForClick();
+
+	CurrentTimeStep = 0;
+
+	AddAllListsToDrawingList();
+	pGUI->UpdateInterface(CurrentTimeStep);	//upadte interface to show the initial case where all enemies are still inactive
+
+	while (KilledCount < EnemyCount && this->GetCastle()->GetHealth())	//as long as some enemies are alive (should be updated in next phases)
+	{
+		CurrentTimeStep++;
+		ActivateEnemies();
+
+		//update enemies here
+
+		pGUI->ResetDrawingList();
+		pGUI->waitForClick();
+		AddAllListsToDrawingList();
+		pGUI->UpdateInterface(CurrentTimeStep);
+		updateWarStatus(CurrentTimeStep);
+
+		switch (flag)
+		{
+		case 0:
+			pGUI->waitForClick();
+			break;
+		case 1:
+			Sleep(1000);
+			break;
+		case 2:
+			// silent mode
+			break;
+		} 
+
+		
+	}
+
+	/*if (KilledCount >= EnemyCount)
+		gamestatus = "WIN";
+	else if (GetCastle()->GetHealth() <= 0)
+		gamestatus = "LOSE";
+	else
+		gamestatus = "DRAWN";*/
+}
+
 
 //Randomly update enemies distance/status (for demo purposes)
 void Battle::Demo_UpdateEnemies()	
@@ -233,15 +289,15 @@ void Battle::GUImode(PROG_MODE mode)
 	// to be implemented
 	if (mode == MODE_INTR)
 	{
-
+		RunMode("Interactive", 0);
 	}
 	else if (mode == MODE_STEP)
 	{
-
+		RunMode("Step", 1);
 	}
 	else // silent mode
 	{
-
+		RunMode("Silent", 2);
 	}
 }
 
