@@ -9,7 +9,7 @@ class Healer :
     public:
         Healer(int id, int arrTime, int rld, int hlth, int pow, int spd);
         ~Healer();
-        void Heal();
+        void Heal(Enemy* pE, int currTimeStep);
         void March();
         bool IsFrozen();
         void SetHealth(double h);

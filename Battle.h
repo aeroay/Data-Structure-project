@@ -59,8 +59,9 @@ public:
 	GUI* getGUI();
 	void RunSimulation();
 	void ActivateEnemies();					//check the inactive list and activate all enemies that has arrived
-	void updateEnemies();
-	void RunMode(string, int);
+	void letTheHungerGamesBegin();				// a function that makes the castle interact with enimes and vise versa
+	void RunMode(string, int);				// funtcion that takes over after choosing the gui mode
+	
 
 
 	void AddtoDemoList(Enemy* Ptr);		//Add Enemy to the demo queue of enemies (for demo purposes only)

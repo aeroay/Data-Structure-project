@@ -12,7 +12,7 @@ Freezer::~Freezer()
 {
 }
 
-void Freezer::Freeze()
+void Freezer::Freeze()        //(Castle* pCas, int currTimeStep)
 {
 }
 

@@ -12,7 +12,7 @@ Healer::~Healer()
 {
 }
 
-void Healer::Heal()
+void Healer::Heal(Enemy* pE, int currTimeStep)
 {
 }
 

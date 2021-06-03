@@ -151,9 +151,6 @@ void Battle::ActivateEnemies()
 	}
 }
 
-void Battle::updateEnemies()
-{
-}
 
 void Battle::RunMode(string mode_name, int flag)
 {
@@ -175,10 +172,9 @@ void Battle::RunMode(string mode_name, int flag)
 		CurrentTimeStep++;
 		ActivateEnemies();
 
-		//update enemies here
+		letTheHungerGamesBegin();    // a function that makes the castle interact with enimes and vise versa
 
 		pGUI->ResetDrawingList();
-		pGUI->waitForClick();
 		AddAllListsToDrawingList();
 		pGUI->UpdateInterface(CurrentTimeStep);
 		updateWarStatus(CurrentTimeStep);
@@ -205,6 +201,11 @@ void Battle::RunMode(string mode_name, int flag)
 		gamestatus = "LOSE";
 	else
 		gamestatus = "DRAWN";*/
+}
+
+void Battle::letTheHungerGamesBegin()
+{
+
 }
 
 
@@ -373,7 +374,7 @@ void Battle::loadEnemy()
 
 
 		file >> CH >> N >> CP >> M;
-		c->SetHealth(CH);
+		c->SetAllHealth(CH);   
 		c->setMaxShoot(N); 
 		c->SetPower(CP);		
 		setMaxEnemy(M);

@@ -1,6 +1,17 @@
 #include "Castle.h"
 #include <cmath>
 
+void Castle::SetAllHealth(double h)
+{
+	intialHealth = h;
+	Health = h;
+}
+
+double Castle::GetAllHealth() const
+{
+	return intialHealth;
+}
+
 void Castle::SetHealth(double h)
 {
 	if(h > 0)

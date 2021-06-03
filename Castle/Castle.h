@@ -10,7 +10,8 @@
 
 class Castle
 {
-	double			Health;
+	double			Health,			 //the current health in hte battle
+					intialHealth;    //the satrting health i.e. before battle
 	CASTLE_STATUS	status;
 	double			power; // Power of each castle.
 	//
@@ -19,6 +20,9 @@ class Castle
 	int maxShoot;     // max #enemy the catle ca shoot at every time step
 
 public:
+
+	void SetAllHealth(double h);
+	double GetAllHealth() const;
 
 	void SetHealth(double h);
 	double GetHealth() const;

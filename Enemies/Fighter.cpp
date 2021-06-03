@@ -17,7 +17,7 @@ Fighter::~Fighter()
 
 }
 
-void Fighter::Fight()
+void Fighter::Fight()                       //(Castle* pCas, int currTimeStep)
 {
 }
 

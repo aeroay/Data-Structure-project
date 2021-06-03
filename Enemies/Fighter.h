@@ -1,6 +1,6 @@
 #pragma once
 #include "Enemy.h"
-
+//#include "../Castle/Castle.h"
 
 class Fighter :
     public Enemy
@@ -9,7 +9,7 @@ class Fighter :
 public:
     Fighter(int id, int arrTime, int rld, int hlth, int pow, int spd);
     ~Fighter();
-    void Fight();
+    void Fight();               //(Castle* pCas, int currTimeStep);
     void March();
     bool IsFrozen();
     void SetHealth(double h);
