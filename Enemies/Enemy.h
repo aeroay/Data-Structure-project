@@ -24,10 +24,10 @@ protected:
 	double		power;		 // Power of each enemy.
 	int			rldPeriod;   //reload period
 	int			speed;		 //enemy speed
-	int FD;					// first shot delay 
-	int KD;					// kill delay 
-	int LT;					// total enemy life time
-	int KTS;				// killing time step
+	int FirstShotDelay;					// first shot delay = T first shot - T arrival 
+	int KillDelay;					// kill delay = T KTS - T FD
+	int LifeTime;					// total enemy life time = FD + KD 
+	int KillTimeStep;				// killing time step
 
 
 

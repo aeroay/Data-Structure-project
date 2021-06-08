@@ -155,17 +155,18 @@ void Battle::ActivateEnemies()
 void Battle::RunMode(string mode_name, int flag)
 {
 	
-	pGUI->PrintMessage("Welcome to "+ mode_name +" Mode, click to continue");
+	pGUI->PrintMessage("Welcome to "+ mode_name +" mode, click to continue");
 	pGUI->waitForClick();
 
 	loadEnemy();
 	pGUI->PrintMessage("Generating Enemies from the file ... CLICK to continue");
 	pGUI->waitForClick();
 
-	CurrentTimeStep = 0;
+	CurrentTimeStep = -1;
 
 	AddAllListsToDrawingList();
 	pGUI->UpdateInterface(CurrentTimeStep);	//upadte interface to show the initial case where all enemies are still inactive
+	updateWarStatus(CurrentTimeStep);
 
 	while (KilledCount < EnemyCount && this->GetCastle()->GetHealth())	//as long as some enemies are alive (should be updated in next phases)
 	{
@@ -195,18 +196,36 @@ void Battle::RunMode(string mode_name, int flag)
 		
 	}
 
-	/*if (KilledCount >= EnemyCount)
-		gamestatus = "WIN";
-	else if (GetCastle()->GetHealth() <= 0)
-		gamestatus = "LOSE";
-	else
-		gamestatus = "DRAWN";*/
+	
 }
 
 void Battle::letTheHungerGamesBegin()
 {
+	// 0- extract enemies from DS to array drawing
+		// set arrival time = current time step
 
+	// 1- enemy shoot the castle 
+		// fighter shoot 
+		// freezer throw ice
+		// healers heal enemies with 2 meter ahead if the health was decreased 
+
+	// 2- castle shoot the enemy 
+		// set first shot = current time step
+		// set time stamps for every enemy
+
+
+	// 3- check every enemy status
+		// if !(dead || frosted) -> decrement distance
+		// else -> enqueue in killed/frosted list
+		// if current health < 0.5 original health -> speed is halfed
+
+	// 4- increment current time step
+
+
+	// do not forget to update statitics in every time step
 }
+
+
 
 
 //Randomly update enemies distance/status (for demo purposes)
@@ -286,7 +305,7 @@ void Battle::PrintWarAftermath()
 
 void Battle::GUImode(PROG_MODE mode)
 {
-	Just_A_Demo();
+	
 	// to be implemented
 	if (mode == MODE_INTR)
 	{
@@ -352,7 +371,7 @@ int Battle::getKld_E() const
 
 void Battle::loadEnemy()
 {
-	pGUI->PrintMessage("Please Enter The input file name, without .txt");
+	pGUI->PrintMessage("Please enter the input file name, without .txt");
 	string fileName = pGUI->GetString(); //file name to be input by the user
 	ifstream file(fileName + ".txt");
 

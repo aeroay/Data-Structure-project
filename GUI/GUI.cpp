@@ -255,7 +255,6 @@ void GUI::UpdateStatusBar(int CurrentTimeStep)
 void GUI::UpdateInterface(int CurrentTimeStep) 
 {
 	ClearDrawingArea();
-	if (CurrentTimeStep<=0)
 	UpdateStatusBar(CurrentTimeStep);
 	DrawCastleArea();
 	DrawAllItems();

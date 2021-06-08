@@ -1,9 +1,9 @@
 #pragma once
 #include "..\Defs.h"
 #include "..\Enemies\Enemy.h"
-#include "..\Enemies\Fighter.h"
-#include "..\Enemies\Freezer.h"
-#include "..\Enemies\Healer.h"
+#include "../Enemies/Fighter.h"
+#include "../Enemies/Freezer.h"
+#include "../Enemies/Healer.h"
 #include "..\Generic_DS\Queue.h"
 #include "..\Generic_DS\Stack.h"
 #include "..\Generic_DS\PQueue.h"
