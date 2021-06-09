@@ -21,13 +21,15 @@ protected:
 	// ===============================
 
 	double		Health;		//Enemy health
+	double		orgHealth;
 	double		power;		 // Power of each enemy.
 	int			rldPeriod;   //reload period
 	int			speed;		 //enemy speed
-	int FirstShotDelay;					// first shot delay = T first shot - T arrival 
-	int KillDelay;					// kill delay = T KTS - T FD
-	int LifeTime;					// total enemy life time = FD + KD 
+	//int FirstShotDelay;					// first shot delay = T first shot - T arrival 
+	//int KillDelay;					// kill delay = T KTS - T FD
+	//int LifeTime;					// total enemy life time = FD + KD 
 	int KillTimeStep;				// killing time step
+	int firstShot;
 
 
 
@@ -45,17 +47,14 @@ public:
 	int GetArrvTime() const;
 	void setPower(int x);
 	void setHealth(int x);
+	void decreaseHealth(int x);
 	void setRldPeriod(int x);
 	void setSpeed(int x);
-	// Virtual Functions: ----------------
-
-	/*virtual void Fight() = 0;
-	virtual void Heal() = 0;
-	virtual void Freeze() = 0;*/
-
-	//
-	// TODO: Add More Member Functions As Needed
-	//
-
+	// newly implemented members
+	void setFirstShot(int t);
+	void setKillTime(int t);
+	int getLifeTime()const;
+	int getKillDelay()const;
+	int getFirstShotDelay()const;
 };
 

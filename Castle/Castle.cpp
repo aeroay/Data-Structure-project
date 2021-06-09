@@ -32,6 +32,9 @@ CASTLE_STATUS Castle::GetStatus() const
 
 void Castle::SetStatus(CASTLE_STATUS s)
 {
+	// active = 0
+	// forsted = 1
+	// destroyed = 2
 	status = s;
 }
 

@@ -17,8 +17,13 @@ Fighter::~Fighter()
 
 }
 
-void Fighter::Fight()
+int Fighter::Fight()
 {
+	if (Health<0.5*orgHealth)
+		return (0.5 / Distance * power);
+	
+	else
+		return (1/Distance * power);
 }
 
 

@@ -5,6 +5,8 @@ Enemy::Enemy(int id, int arrTime):ID(id),ArrvTime(arrTime)
 {
 	SetDistance(MaxDistance);
 	SetStatus(INAC);
+	firstShot = -1;
+
 }
 
 Enemy::~Enemy()
@@ -62,6 +64,8 @@ void Enemy::setPower(int x)
 
 void Enemy::setHealth(int x)
 {
+	// sets the value of the original ealth of the enemy
+	orgHealth = x;
 	Health = x;
 }
 
@@ -73,6 +77,39 @@ void Enemy::setRldPeriod(int x)
 void Enemy::setSpeed(int x)
 {
 	speed = x;
+}
+
+void Enemy::decreaseHealth(int x)
+{
+	Health -= x;
+}
+
+int Enemy::getFirstShotDelay() const
+{
+	return firstShot - ArrvTime;
+}
+
+
+
+void Enemy::setFirstShot(int t)
+{
+	firstShot = t;
+
+}
+
+void Enemy::setKillTime(int t)
+{
+	KillTimeStep = t;
+}
+
+int Enemy::getLifeTime() const
+{
+	return KillTimeStep-ArrvTime;
+}
+
+int Enemy::getKillDelay() const
+{
+	return KillTimeStep-firstShot;
 }
 
 

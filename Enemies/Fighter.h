@@ -10,7 +10,7 @@ class Fighter :
 public:
     Fighter(int id, int arrTime, int rld, int hlth, int pow, int spd);
     ~Fighter();
-    void Fight();
+    int Fight();
     void March();
     bool IsFrozen();
     void SetHealth(double h);
