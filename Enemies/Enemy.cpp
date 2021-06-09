@@ -45,6 +45,11 @@ void Enemy::SetDistance(int d)
 		Distance = MaxDistance;
 }
 
+void Enemy::marchTowardCastle()
+{
+	SetDistance(Distance - (Health < 0.5 * orgHealth ? (int)speed / 2 : speed));
+}
+
 int Enemy::GetDistance() const
 {
 	return Distance;

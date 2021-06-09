@@ -1,5 +1,7 @@
 #include "Castle.h"
 #include <cmath>
+#include <time.h>
+
 
 void Castle::SetAllHealth(double h)
 {
@@ -55,9 +57,18 @@ void Castle::setMaxShoot(int max)
 
 void Castle::attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers,  int currTimeStep)
 {
-	shootBullets(fighters, freezers, healers, currTimeStep);
-	shootIce(fighters, freezers, healers, currTimeStep);
 
+	if (status == ACTIVE)
+	{
+		srand(time(0));
+		int rnd = rand()%100 +1;
+		double prob = rnd / 100;
+
+		if (100*prob> 20)
+		shootBullets(fighters, freezers, healers, currTimeStep);
+		 else
+		shootIce(fighters, freezers, healers, currTimeStep);
+	}
 }
 
 void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep)
@@ -65,23 +76,30 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 	Fighter* pFtr;
 	Freezer* pFrz;
 	Healer* pHlr;
+	// temporary DS as a repositery to help fill the original DS again
+	PQueue<Fighter*> ftrs;
+	Queue<Freezer*> frzs;
+	Stack<Healer*> hlrs;
 
+	// dequeu or pop, then decrease health ...., push in a temporary DS
 	for (int i = 0; i < maxShoot; i++)
 	{
 		if (!fighters.isEmpty())
 		{
 			fighters.dePQueue(pFtr);
-			// decreasehealth according to castle shoot
+			// decrease health according to castle shoot power
 			pFtr->decreaseHealth(power / pFtr->GetDistance());
 			// set first shoot time step
-			if (pFtr->getFirstShot()!= -1)
-			pFtr->setFirstShot(currTimeStep);
+			if (pFtr->getFirstShot() != -1)
+				pFtr->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
 			if (pFtr->GetHealth() <= 0)
 			{
 				pFtr->setKillTime(currTimeStep);
 				pFtr->SetStatus(KILD);
 			}
+
+			ftrs.enPQueue(pFtr, pFtr->getPriorty());
 
 		}
 
@@ -103,6 +121,7 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 					Health *= 1.03;
 			}
 
+			hlrs.push(pHlr);
 		}
 
 		else if (!freezers.isEmpty())
@@ -120,15 +139,31 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 				pFrz->SetStatus(KILD);
 			}
 
+			frzs.enqueue(pFrz);
 		}
 	}
 
+	for (int i = 0; i < maxShoot; i++)
+	{
+		if (!ftrs.isEmpty())
+		{
+			ftrs.dePQueue(pFtr);
+			fighters.enPQueue(pFtr, pFtr->getPriorty());
+		}
 
+		else if (!hlrs.isEmpty())
+		{
+			hlrs.pop(pHlr);
+			healers.push(pHlr);
+		}
 
-
-
+		else if (!frzs.isEmpty())
+		{
+			frzs.dequeue(pFrz);
+			freezers.enqueue(pFrz);
+		}
+	}
 }
-
 void Castle::shootIce(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep)
 {
 

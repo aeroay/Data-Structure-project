@@ -18,6 +18,11 @@ private:
 	Castle pCastle;
 	int EnemyCount;							//the actual number of enemies in the game
 	int ActiveCount, FrostedCount, KilledCount;	//no. of enemies (Active, Frosted, killed so far)
+	int Actv_Ftr, Actv_Hlr, Actv_Frz;			//no. active enemies of each type
+	int Kld_Ftr, Kld_Hlr, Kld_Frz;				//no. killed enemies of each type
+	int frosted_Ftr, frosted_Hlr, frosted_Frz;	//no. frosted enemies of each type
+	
+
 	int CurrentTimeStep;
 	Enemy * BEnemiesForDraw[MaxEnemyCount]; // This Array of Pointers is used for drawing elements in the GUI
 								  			// No matter what list type you are using to hold enemies, 
@@ -59,7 +64,7 @@ public:
 	GUI* getGUI();
 	void RunSimulation();
 	void ActivateEnemies();					//check the inactive list and activate all enemies that has arrived
-	void letTheHungerGamesBegin();				// a function that makes the castle interact with enimes and vise versa
+	void letTheHungerGamesBegin();			// a function that makes the castle interact with enemies and vice versa
 	void RunMode(string, int);				// funtcion that takes over after choosing the gui mode
 	
 
@@ -81,8 +86,8 @@ public:
 	int getActv_E()const;
 	int getFrz_E()const;
 	int getKld_E()const;						// returns no.of enemies(Active, Frosted, killed so far)
+	void updateNumbers();						// update numbers of killed/active/frostedd number of each type of enemy
 	
-
 
 };
 

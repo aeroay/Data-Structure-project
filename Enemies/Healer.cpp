@@ -18,9 +18,9 @@ void Healer::Heal(Enemy* pE, int currTimeStep)
 
 void Healer::March()
 {
-	if (!IsFrozen())
+	if (ACTV)
 	{
-		DecrementDist();
+		marchTowardCastle();
 	}
 }
 

@@ -202,16 +202,54 @@ void Battle::RunMode(string mode_name, int flag)
 void Battle::letTheHungerGamesBegin()
 {
 	// 0- extract enemies from DS to array drawing
-		// set arrival time = current time step
+	Fighter* pFtr;
+	Freezer* pFrz;
+	Healer* pHlr;
+	Castle* pCas = GetCastle();
 
-	// 1- enemy shoot the castle 
+	updateNumbers();         //sets active/kiled/frosted enemies count
+	// temporary DS as a repositery to help fill the original DS again
+	PQueue<Fighter*> ftrs;
+	Queue<Freezer*> frzs;
+	Stack<Healer*> hlrs;
+	
+	// 1- castle shoot the enemy 
+		// set first shot = current time step
+		// set time stamps for every enemy
+	pCas->attackEnemies(Q_Fighter,Q_Freezer,S_Healer,CurrentTimeStep);
+
+	// 2- enemy shoot the castle 
 		// fighter shoot 
 		// freezer throw ice
 		// healers heal enemies with 2 meter ahead if the health was decreased 
 
-	// 2- castle shoot the enemy 
-		// set first shot = current time step
-		// set time stamps for every enemy
+	for (int i = 0; i < getActv_E(); i++)
+	{
+		if (!Q_Fighter.isEmpty())
+		{
+			Q_Fighter.dePQueue(pFtr);
+			pFtr->Fight();
+			pFtr->March();
+			ftrs.enPQueue(pFtr, pFtr->getPriorty());
+
+		}
+
+		else if (!S_Healer.isEmpty())
+		{
+			S_Healer.pop(pHlr);
+			//pHlr->Heal();
+			pHlr->March();
+			hlrs.push(pHlr);
+		}
+
+		else if (!Q_Freezer.isEmpty())
+		{
+			Q_Freezer.dequeue(pFrz);
+			pFrz->Freeze();
+			pFrz->March();
+			frzs.enqueue(pFrz);
+		}
+	}
 
 
 	// 3- check every enemy status
@@ -353,17 +391,41 @@ void Battle::updateWarStatus(int CurrentTimeStep)
 
 int Battle::getActv_E() const
 {
-	return ActiveCount;
+	  
+	return Actv_Frz+Actv_Ftr+Actv_Hlr;
 }
 
 int Battle::getFrz_E() const
 {
-	return FrostedCount;
+	return frosted_Frz+frosted_Ftr+frosted_Hlr;
 }
 
 int Battle::getKld_E() const
 {
-	return KilledCount;
+	return Kld_Frz+Kld_Ftr+Kld_Hlr;
+}
+
+void Battle::updateNumbers()
+{
+	if (!Q_Fighter.isEmpty())
+	Q_Fighter.toArray(Actv_Ftr);
+
+	if (!S_Healer.isEmpty())
+	S_Healer.toArray(Actv_Hlr);
+
+	if (!Q_Freezer.isEmpty())
+	Q_Freezer.toArray(Actv_Frz);
+
+	Kld_Frz = 0;
+	Kld_Ftr = 0;
+	Kld_Hlr = 0;
+
+	frosted_Frz = 0;
+	frosted_Ftr = 0;
+	frosted_Hlr = 0;
+
+
+
 }
 
 

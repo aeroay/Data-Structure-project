@@ -41,8 +41,9 @@ public:
 	ENMY_STATUS GetStatus() const;
 	void SetStatus(ENMY_STATUS s);
 	
-	void DecrementDist();
+	void DecrementDist();                       // used only in demo
 	void SetDistance(int );
+	void marchTowardCastle();
 	int GetDistance() const;
 	int GetArrvTime() const;
 	void setPower(int x);

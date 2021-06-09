@@ -19,9 +19,9 @@ void Freezer::Freeze()
 
 void Freezer::March()
 {
-	if (!IsFrozen())
+	if (ACTV)
 	{
-		DecrementDist();
+		marchTowardCastle();
 	}
 }
 

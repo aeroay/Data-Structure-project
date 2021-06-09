@@ -29,9 +29,9 @@ int Fighter::Fight()
 
 void Fighter::March()
 {
-	if (!IsFrozen())
+	if (ACTV)
 	{
-		DecrementDist();
+		marchTowardCastle();
 	}
 }
 
