@@ -52,6 +52,7 @@ public:
 	void setSpeed(int x);
 	// newly implemented members
 	void setFirstShot(int t);
+	int getFirstShot()const;
 	void setKillTime(int t);
 	int getLifeTime()const;
 	int getKillDelay()const;

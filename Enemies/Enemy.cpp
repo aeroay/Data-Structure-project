@@ -97,6 +97,11 @@ void Enemy::setFirstShot(int t)
 
 }
 
+int Enemy::getFirstShot() const
+{
+	return firstShot;
+}
+
 void Enemy::setKillTime(int t)
 {
 	KillTimeStep = t;

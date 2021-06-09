@@ -17,7 +17,7 @@ class Castle
 	//
 	// TODO: Add More Data Members As Needed
 	//
-	int maxShoot;     // max #enemy the catle ca shoot at every time step
+	int maxShoot;     // max #enemy the catle can shoot at every time step
 
 public:
 
