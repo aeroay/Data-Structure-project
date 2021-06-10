@@ -94,6 +94,11 @@ int Enemy::getFirstShotDelay() const
 	return firstShot - ArrvTime;
 }
 
+int Enemy::getFreezingPriorty() const
+{
+	return 0;
+}
+
 
 
 void Enemy::setFirstShot(int t)

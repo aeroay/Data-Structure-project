@@ -12,6 +12,15 @@ Battle::Battle()
 	FrostedCount = 0;
 	DemoListCount = 0;
 	CurrentTimeStep = 0;
+
+	Kld_Frz = 0;
+	Kld_Ftr = 0;
+	Kld_Hlr = 0;
+
+	frosted_Frz = 0;
+	frosted_Ftr = 0;
+	frosted_Hlr = 0;
+
 	pGUI = NULL;
 }
 
@@ -162,7 +171,7 @@ void Battle::RunMode(string mode_name, int flag)
 	pGUI->PrintMessage("Generating Enemies from the file ... CLICK to continue");
 	pGUI->waitForClick();
 
-	CurrentTimeStep = -1;
+	CurrentTimeStep = 0;
 
 	AddAllListsToDrawingList();
 	pGUI->UpdateInterface(CurrentTimeStep);	//upadte interface to show the initial case where all enemies are still inactive
@@ -228,26 +237,74 @@ void Battle::letTheHungerGamesBegin()
 		if (!Q_Fighter.isEmpty())
 		{
 			Q_Fighter.dePQueue(pFtr);
-			pFtr->Fight();
-			pFtr->March();
-			ftrs.enPQueue(pFtr, pFtr->getPriorty());
-
+			if (pFtr->GetStatus() == ACTV)
+			{
+				pFtr->Fight();
+				pFtr->March();
+				ftrs.enPQueue(pFtr, pFtr->getPriorty());
+			}
+			else if (pFtr->GetStatus() == KILD)
+			{
+				Q_Killed.enqueue(pFtr);
+				Kld_Ftr++;
+				Actv_Ftr--;
+			}
+			else if (pFtr->GetStatus() == FRST)
+			{
+				Q_Frozen.enPQueue(pFtr, pFtr->getFreezingPriorty());
+				frosted_Ftr++;
+				Actv_Ftr--;
+			}
 		}
 
-		else if (!S_Healer.isEmpty())
+		if (!S_Healer.isEmpty())
 		{
 			S_Healer.pop(pHlr);
-			//pHlr->Heal();
-			pHlr->March();
-			hlrs.push(pHlr);
+			if (pFtr->GetStatus() == ACTV)
+			{
+				//pHlr->Heal();
+				pHlr->March();
+				hlrs.push(pHlr);
+			}
+			else if (pHlr->GetStatus() == KILD)
+			{
+				Q_Killed.enqueue(pHlr);
+				Kld_Hlr++;
+				Actv_Hlr--;
+			}
+			else if (pHlr->GetStatus() == FRST)
+			{
+				Q_Frozen.enPQueue(pHlr, pHlr->getFreezingPriorty());
+				frosted_Hlr++;
+				Actv_Hlr--;
+			}
+			
+			
 		}
 
-		else if (!Q_Freezer.isEmpty())
+		if (!Q_Freezer.isEmpty())
 		{
 			Q_Freezer.dequeue(pFrz);
-			pFrz->Freeze();
-			pFrz->March();
-			frzs.enqueue(pFrz);
+
+			if (pFtr->GetStatus() == ACTV)
+			{
+				pFrz->Freeze();
+				pFrz->March();
+				frzs.enqueue(pFrz);
+			}
+			else if (pFrz->GetStatus() == KILD)
+			{
+				Q_Killed.enqueue(pFrz);
+				Actv_Frz--;
+				Kld_Frz++;
+				
+			}
+			else if (pFrz->GetStatus() == FRST)
+			{
+				Q_Frozen.enPQueue(pFrz, pFrz->getFreezingPriorty());
+				Actv_Frz--;
+				frosted_Frz++;
+			}
 		}
 	}
 
@@ -392,17 +449,32 @@ void Battle::updateWarStatus(int CurrentTimeStep)
 int Battle::getActv_E() const
 {
 	  
-	return Actv_Frz+Actv_Ftr+Actv_Hlr;
+	return ActiveCount;
+}
+
+void Battle::setActv_E()
+{
+	ActiveCount = Actv_Frz + Actv_Ftr + Actv_Hlr;
 }
 
 int Battle::getFrz_E() const
 {
-	return frosted_Frz+frosted_Ftr+frosted_Hlr;
+	return FrostedCount;
+}
+
+void Battle::setFrz_E()
+{
+	FrostedCount = frosted_Frz + frosted_Ftr + frosted_Hlr;
 }
 
 int Battle::getKld_E() const
 {
-	return Kld_Frz+Kld_Ftr+Kld_Hlr;
+	return KilledCount;
+}
+
+void Battle::setKld_E()
+{
+	KilledCount = Kld_Frz + Kld_Ftr + Kld_Hlr;
 }
 
 void Battle::updateNumbers()
@@ -416,15 +488,9 @@ void Battle::updateNumbers()
 	if (!Q_Freezer.isEmpty())
 	Q_Freezer.toArray(Actv_Frz);
 
-	Kld_Frz = 0;
-	Kld_Ftr = 0;
-	Kld_Hlr = 0;
-
-	frosted_Frz = 0;
-	frosted_Ftr = 0;
-	frosted_Hlr = 0;
-
-
+	setActv_E();
+	setFrz_E();
+	setKld_E();
 
 }
 

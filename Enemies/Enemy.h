@@ -58,5 +58,7 @@ public:
 	int getLifeTime()const;
 	int getKillDelay()const;
 	int getFirstShotDelay()const;
+	int getFreezingPriorty()const;
+
 };
 

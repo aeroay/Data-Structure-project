@@ -84,8 +84,11 @@ public:
 	void GUImode(PROG_MODE mode);
 	void updateWarStatus(int CurrentTimeStep);  //shows newly fight results in status bar
 	int getActv_E()const;
+	void setActv_E();
 	int getFrz_E()const;
+	void setFrz_E();
 	int getKld_E()const;						// returns no.of enemies(Active, Frosted, killed so far)
+	void setKld_E();
 	void updateNumbers();						// update numbers of killed/active/frostedd number of each type of enemy
 	
 
