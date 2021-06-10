@@ -4,6 +4,7 @@
 Fighter::Fighter(int id, int arrTime, int rld, int hlth, int pow, int spd) :Enemy(id, arrTime)
 {
 	this->Health = hlth;
+	orgHealth = hlth;
 	this-> rldPeriod = rld;
 	this->power=pow;
 	this->speed=spd;
@@ -17,13 +18,13 @@ Fighter::~Fighter()
 
 }
 
-int Fighter::Fight()
+double Fighter::Fight()
 {
 	if (Health<0.5*orgHealth)
 		return (0.5 / Distance * power);
 	
 	else
-		return (1/Distance * power);
+		return (1.0/(double)Distance * power);
 }
 
 

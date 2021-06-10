@@ -6,6 +6,7 @@ Healer::Healer(int id, int arrTime, int rld, int hlth, int pow, int spd) :Enemy(
 	this->rldPeriod = rld;
 	this->power = pow;
 	this->speed = spd;
+	orgHealth = hlth;
 }
 
 Healer::~Healer()

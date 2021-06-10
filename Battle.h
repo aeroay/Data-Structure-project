@@ -11,6 +11,9 @@
 #include "GUI\GUI.h"
 
 // it is the controller of the project
+
+// output function
+// modularity in castle/fighter
 class Battle
 {
 private:

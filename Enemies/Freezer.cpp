@@ -6,6 +6,7 @@ Freezer::Freezer(int id, int arrTime, int rld, int hlth, int pow, int spd) :Enem
 	this->rldPeriod = rld;
 	this->power = pow;
 	this->speed = spd;
+	orgHealth = hlth;
 }
 
 Freezer::~Freezer()

@@ -6,6 +6,7 @@ Enemy::Enemy(int id, int arrTime):ID(id),ArrvTime(arrTime)
 	SetDistance(MaxDistance);
 	SetStatus(INAC);
 	firstShot = -1;
+	KillTimeStep = -1;
 
 }
 
@@ -42,7 +43,7 @@ void Enemy::SetDistance(int d)
 	if (d >= MinDistance && d <= MaxDistance)
 		Distance = d;
 	else
-		Distance = MaxDistance;
+		Distance = MinDistance;
 }
 
 void Enemy::marchTowardCastle()

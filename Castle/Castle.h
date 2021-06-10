@@ -20,10 +20,10 @@ class Castle
 	int maxShoot;     // max #enemy the catle can shoot at every time step
 
 public:
-
+	Castle();
 	void SetAllHealth(double h);
 	double GetAllHealth() const;
-
+	void decreaseHealth(double h);
 	void SetHealth(double h);
 	double GetHealth() const;
 	CASTLE_STATUS GetStatus() const;

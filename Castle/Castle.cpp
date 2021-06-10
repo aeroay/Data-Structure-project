@@ -3,6 +3,11 @@
 #include <time.h>
 
 
+Castle::Castle()
+{
+	status = ACTIVE;
+}
+
 void Castle::SetAllHealth(double h)
 {
 	intialHealth = h;
@@ -12,6 +17,11 @@ void Castle::SetAllHealth(double h)
 double Castle::GetAllHealth() const
 {
 	return intialHealth;
+}
+
+void Castle::decreaseHealth(double h)
+{
+	Health -= h;
 }
 
 void Castle::SetHealth(double h)
@@ -64,10 +74,10 @@ void Castle::attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers
 		int rnd = rand()%100 +1;
 		double prob = rnd / 100;
 
-		if (100*prob> 20)
+		//if (100*prob> 20)
 		shootBullets(fighters, freezers, healers, currTimeStep);
-		 else
-		shootIce(fighters, freezers, healers, currTimeStep);
+		// else
+		//shootIce(fighters, freezers, healers, currTimeStep);
 	}
 }
 

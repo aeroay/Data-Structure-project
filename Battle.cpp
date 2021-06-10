@@ -13,6 +13,8 @@ Battle::Battle()
 	DemoListCount = 0;
 	CurrentTimeStep = 0;
 
+	Actv_Ftr=0, Actv_Hlr=0, Actv_Frz=0;
+
 	Kld_Frz = 0;
 	Kld_Ftr = 0;
 	Kld_Hlr = 0;
@@ -122,6 +124,31 @@ void Battle::AddAllListsToDrawingList()
 	for(int i=0; i<InactiveCount; i++)
 		pGUI->AddToDrawingList(EnemyList[i]);
 
+	int ftrs;
+	Fighter* const* FighterList = Q_Fighter.toArray(ftrs);
+	for (int i = 0; i < ftrs; i++)
+		pGUI->AddToDrawingList(FighterList[i]);
+
+	int kld;
+	Enemy* const* KilledList = Q_Killed.toArray(kld);
+	for (int i = 0; i < kld; i++)
+		pGUI->AddToDrawingList(KilledList[i]);
+
+	int frz;
+	Freezer* const* FreezerList = Q_Freezer.toArray(frz);
+	for (int i = 0; i < frz; i++)
+		pGUI->AddToDrawingList(FreezerList[i]);
+
+	int hlr;
+	Healer* const* HealerList = S_Healer.toArray(hlr);
+	for (int i = 0; i < hlr; i++)
+		pGUI->AddToDrawingList(HealerList[i]);
+
+
+
+
+
+
 	//Add other lists to drawing list
 	//TO DO
 	//In next phases, you should add enemies from different lists to the drawing list
@@ -177,17 +204,21 @@ void Battle::RunMode(string mode_name, int flag)
 	pGUI->UpdateInterface(CurrentTimeStep);	//upadte interface to show the initial case where all enemies are still inactive
 	updateWarStatus(CurrentTimeStep);
 
-	while (KilledCount < EnemyCount && this->GetCastle()->GetHealth())	//as long as some enemies are alive (should be updated in next phases)
+	while (KilledCount < EnemyCount && this->GetCastle()->GetHealth()>0)	//as long as some enemies are alive (should be updated in next phases)
 	{
 		CurrentTimeStep++;
 		ActivateEnemies();
-
-		letTheHungerGamesBegin();    // a function that makes the castle interact with enimes and vise versa
-
 		pGUI->ResetDrawingList();
 		AddAllListsToDrawingList();
+	
 		pGUI->UpdateInterface(CurrentTimeStep);
 		updateWarStatus(CurrentTimeStep);
+		
+		letTheHungerGamesBegin();    // a function that makes the castle interact with enimes and vise versa
+
+		
+		//AddAllListsToDrawingList();
+		
 
 		switch (flag)
 		{
@@ -204,8 +235,14 @@ void Battle::RunMode(string mode_name, int flag)
 
 		
 	}
+	pGUI->ResetDrawingList();
+	AddAllListsToDrawingList();
 
+	pGUI->UpdateInterface(CurrentTimeStep);
+	updateWarStatus(CurrentTimeStep);
 	
+	char c;
+	cin >> c;
 }
 
 void Battle::letTheHungerGamesBegin()
@@ -239,11 +276,14 @@ void Battle::letTheHungerGamesBegin()
 			Q_Fighter.dePQueue(pFtr);
 			if (pFtr->GetStatus() == ACTV)
 			{
-				pFtr->Fight();
+				
+				double shoot = pFtr->Fight();
+				pCas->decreaseHealth(shoot);
 				pFtr->March();
 				ftrs.enPQueue(pFtr, pFtr->getPriorty());
 			}
-			else if (pFtr->GetStatus() == KILD)
+			
+		else if (pFtr->GetStatus() == KILD)
 			{
 				Q_Killed.enqueue(pFtr);
 				Kld_Ftr++;
@@ -260,13 +300,13 @@ void Battle::letTheHungerGamesBegin()
 		if (!S_Healer.isEmpty())
 		{
 			S_Healer.pop(pHlr);
-			if (pFtr->GetStatus() == ACTV)
+			if (pHlr->GetStatus() == ACTV)
 			{
 				//pHlr->Heal();
 				pHlr->March();
 				hlrs.push(pHlr);
 			}
-			else if (pHlr->GetStatus() == KILD)
+		else if (pHlr->GetStatus() == KILD)
 			{
 				Q_Killed.enqueue(pHlr);
 				Kld_Hlr++;
@@ -286,13 +326,14 @@ void Battle::letTheHungerGamesBegin()
 		{
 			Q_Freezer.dequeue(pFrz);
 
-			if (pFtr->GetStatus() == ACTV)
+			if (pFrz->GetStatus() == ACTV)
 			{
+
 				pFrz->Freeze();
 				pFrz->March();
 				frzs.enqueue(pFrz);
 			}
-			else if (pFrz->GetStatus() == KILD)
+		else if (pFrz->GetStatus() == KILD)
 			{
 				Q_Killed.enqueue(pFrz);
 				Actv_Frz--;
@@ -308,7 +349,25 @@ void Battle::letTheHungerGamesBegin()
 		}
 	}
 
+	for (int i = 0; i < getActv_E(); i++)
+	{
+		if (!ftrs.isEmpty())
+		{
+			ftrs.dePQueue(pFtr);
+			Q_Fighter.enPQueue(pFtr, pFtr->getPriorty());
+		}
 
+		if (!hlrs.isEmpty())
+		{
+			hlrs.pop(pHlr);
+			S_Healer.push(pHlr);
+		}
+		if (!frzs.isEmpty())
+		{
+			frzs.dequeue(pFrz);
+			Q_Freezer.enqueue(pFrz);
+		}
+	}
 	// 3- check every enemy status
 		// if !(dead || frosted) -> decrement distance
 		// else -> enqueue in killed/frosted list
@@ -501,7 +560,7 @@ void Battle::loadEnemy()
 {
 	pGUI->PrintMessage("Please enter the input file name, without .txt");
 	string fileName = pGUI->GetString(); //file name to be input by the user
-	ifstream file(fileName + ".txt");
+	ifstream file(fileName + "input.txt");
 
 	int CH; //Castle Health
 	int CP; // Castle Power
