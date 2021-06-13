@@ -612,7 +612,7 @@ void Battle::loadEnemy()
 {
 	pGUI->PrintMessage("Please enter the input file name, without .txt");
 	string fileName = pGUI->GetString(); //file name to be input by the user
-	ifstream file(fileName + "input.txt");
+	ifstream file(fileName + ".txt");
 
 	int CH; //Castle Health
 	int CP; // Castle Power
