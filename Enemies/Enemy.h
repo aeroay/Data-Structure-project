@@ -55,6 +55,7 @@ public:
 	void setFirstShot(int t);
 	int getFirstShot()const;
 	void setKillTime(int t);
+	int getKillTime()const;
 	int getLifeTime()const;
 	int getKillDelay()const;
 	int getFirstShotDelay()const;

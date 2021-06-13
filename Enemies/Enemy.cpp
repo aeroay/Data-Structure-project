@@ -118,6 +118,11 @@ void Enemy::setKillTime(int t)
 	KillTimeStep = t;
 }
 
+int Enemy::getKillTime() const
+{
+	return KillTimeStep;
+}
+
 int Enemy::getLifeTime() const
 {
 	return KillTimeStep-ArrvTime;

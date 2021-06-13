@@ -41,7 +41,7 @@ private:
 	Queue<Freezer*> Q_Freezer;      // queue of freezer type 
 	Queue<Enemy*> Q_Killed;			//queue of killed enimes
 
-	
+	string battleStatus;				//The state of the game whether WIN, LOSS and DRAWN
 
 	/// ==> 
 	//	DEMO-related members. Should be removed in phases 1&2

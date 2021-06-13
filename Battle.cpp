@@ -195,6 +195,7 @@ void Battle::RunMode(string mode_name, int flag)
 	pGUI->waitForClick();
 
 	loadEnemy();
+
 	pGUI->PrintMessage("Generating Enemies from the file ... CLICK to continue");
 	pGUI->waitForClick();
 
@@ -209,16 +210,10 @@ void Battle::RunMode(string mode_name, int flag)
 		CurrentTimeStep++;
 		ActivateEnemies();
 		pGUI->ResetDrawingList();
-		AddAllListsToDrawingList();
-	
+		AddAllListsToDrawingList();	
 		pGUI->UpdateInterface(CurrentTimeStep);
 		updateWarStatus(CurrentTimeStep);
-		
 		letTheHungerGamesBegin();    // a function that makes the castle interact with enimes and vise versa
-
-		
-		//AddAllListsToDrawingList();
-		
 
 		switch (flag)
 		{
@@ -233,13 +228,19 @@ void Battle::RunMode(string mode_name, int flag)
 			break;
 		} 
 
-		
 	}
 	pGUI->ResetDrawingList();
 	AddAllListsToDrawingList();
 
 	pGUI->UpdateInterface(CurrentTimeStep);
 	updateWarStatus(CurrentTimeStep);
+
+	if (KilledCount >= EnemyCount)
+		battleStatus = "WIN";
+	else if (GetCastle()->GetHealth() <= 0)
+		battleStatus = "LOSE";
+	else
+		battleStatus = "DRAWN";
 	
 	char c;
 	cin >> c;
@@ -446,6 +447,57 @@ int Battle::getMaxEnemy() const
 void Battle::PrintWarAftermath()
 {
 	Castle* pC = this->GetCastle();
+	Enemy* pE;
+
+	ofstream out("BattleOutputFile.txt");
+
+
+	out << "Game is " + battleStatus << endl;
+	out << "KTS\t ID\t FD\t KD\t LT" << endl;
+
+	int enemy_id;
+	int enemy_KDS;
+	int enemy_FD;
+	int enemy_KD;
+	int enemy_LT;
+	int total_FD = 0;
+	int total_KD = 0;
+
+	while (!Q_Killed.isEmpty())
+	{
+		
+		Q_Killed.dequeue(pE);
+		enemy_id = pE->GetID();
+		enemy_KDS = pE->getKillTime();
+		enemy_FD = pE->getFirstShotDelay();
+		enemy_KD = pE->getKillDelay();
+		enemy_LT = pE->getLifeTime();
+		total_FD += enemy_FD;
+		total_KD += enemy_KD;
+
+		out << enemy_KDS << "\t" << enemy_id << "\t" << enemy_FD << "\t" << enemy_KD << "\t" << enemy_LT << endl;
+
+
+
+	}
+
+	double average_FD = (double)total_FD / EnemyCount;
+	double average_KD = (double)total_KD / EnemyCount;
+
+	if (battleStatus == "WIN")
+	{
+		out << "Total Enemies = " << EnemyCount << endl;
+
+	}
+	else
+	{
+		out << "Killed Enemies = " << KilledCount << endl;
+		out << "Alive Enemies = " << EnemyCount - KilledCount << endl;
+	}
+
+	out << "Average First-Shot Delay = " << average_FD << endl;
+	out << "Average Kill Delay = " << average_KD << endl;
+	out.close();
 
 	if (pC->GetStatus() == DSTRD)
 	{
