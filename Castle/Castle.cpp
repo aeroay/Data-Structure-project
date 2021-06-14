@@ -94,13 +94,13 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 	// dequeu or pop, then decrease health ...., push in a temporary DS
 	for (int i = 0; i < maxShoot; i++)
 	{
+		
 		if (!fighters.isEmpty())
 		{
 			fighters.dePQueue(pFtr);
 			// decrease health according to castle shoot power
 			pFtr->decreaseHealth(power / pFtr->GetDistance());
 			// set first shoot time step
-			if (pFtr->getFirstShot() != -1)
 				pFtr->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
 			if (pFtr->GetHealth() <= 0)
@@ -110,7 +110,7 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			}
 
 			ftrs.enPQueue(pFtr, pFtr->getPriorty());
-
+			
 		}
 
 		else if (!healers.isEmpty())
@@ -119,7 +119,6 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			// decreasehealth according to castle shoot
 			pHlr->decreaseHealth(power / pHlr->GetDistance());
 			// set first shoot time step
-			if (pHlr->getFirstShot() != -1)
 				pHlr->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
 			if (pHlr->GetHealth() <= 0)
@@ -132,6 +131,7 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			}
 
 			hlrs.push(pHlr);
+			
 		}
 
 		else if (!freezers.isEmpty())
@@ -140,7 +140,6 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			// decreasehealth according to castle shoot
 			pFrz->decreaseHealth(power / pFrz->GetDistance());
 			// set first shoot time step
-			if (pFrz->getFirstShot() != -1)
 				pFrz->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
 			if (pFrz->GetHealth() <= 0)
@@ -150,9 +149,14 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			}
 
 			frzs.enqueue(pFrz);
+			
 		}
 	}
-
+	/*
+	PlaySound("shot.wav", NULL, SND_ASYNC);
+	* 
+	* 
+	*/
 	for (int i = 0; i < maxShoot; i++)
 	{
 		if (!ftrs.isEmpty())

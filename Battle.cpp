@@ -207,14 +207,14 @@ void Battle::RunMode(string mode_name, int flag)
 
 	while (KilledCount < EnemyCount && this->GetCastle()->GetHealth()>0)	//as long as some enemies are alive (should be updated in next phases)
 	{
-		CurrentTimeStep++;
+	
 		ActivateEnemies();
 		pGUI->ResetDrawingList();
 		AddAllListsToDrawingList();	
 		pGUI->UpdateInterface(CurrentTimeStep);
 		updateWarStatus(CurrentTimeStep);
 		letTheHungerGamesBegin();    // a function that makes the castle interact with enimes and vise versa
-
+		CurrentTimeStep++;
 		switch (flag)
 		{
 		case 0:
@@ -242,8 +242,9 @@ void Battle::RunMode(string mode_name, int flag)
 	else
 		battleStatus = "DRAWN";
 	
+	PrintWarAftermath();
 	char c;
-	cin >> c;
+	//cin >> c;
 }
 
 void Battle::letTheHungerGamesBegin()
@@ -261,15 +262,9 @@ void Battle::letTheHungerGamesBegin()
 	Stack<Healer*> hlrs;
 	
 	// 1- castle shoot the enemy 
-		// set first shot = current time step
-		// set time stamps for every enemy
 	pCas->attackEnemies(Q_Fighter,Q_Freezer,S_Healer,CurrentTimeStep);
 
 	// 2- enemy shoot the castle 
-		// fighter shoot 
-		// freezer throw ice
-		// healers heal enemies with 2 meter ahead if the health was decreased 
-
 	for (int i = 0; i < getActv_E(); i++)
 	{
 		if (!Q_Fighter.isEmpty())
@@ -297,7 +292,6 @@ void Battle::letTheHungerGamesBegin()
 				Actv_Ftr--;
 			}
 		}
-
 		if (!S_Healer.isEmpty())
 		{
 			S_Healer.pop(pHlr);
@@ -322,7 +316,6 @@ void Battle::letTheHungerGamesBegin()
 			
 			
 		}
-
 		if (!Q_Freezer.isEmpty())
 		{
 			Q_Freezer.dequeue(pFrz);
@@ -349,7 +342,7 @@ void Battle::letTheHungerGamesBegin()
 			}
 		}
 	}
-
+	// return enemy to their orginal DS 
 	for (int i = 0; i < getActv_E(); i++)
 	{
 		if (!ftrs.isEmpty())
@@ -369,15 +362,7 @@ void Battle::letTheHungerGamesBegin()
 			Q_Freezer.enqueue(pFrz);
 		}
 	}
-	// 3- check every enemy status
-		// if !(dead || frosted) -> decrement distance
-		// else -> enqueue in killed/frosted list
-		// if current health < 0.5 original health -> speed is halfed
 
-	// 4- increment current time step
-
-
-	// do not forget to update statitics in every time step
 }
 
 
@@ -453,7 +438,7 @@ void Battle::PrintWarAftermath()
 
 
 	out << "Game is " + battleStatus << endl;
-	out << "KTS\t ID\t FD\t KD\t LT" << endl;
+	out << "KTS\tID\tFD\tKD\tLT" << endl;
 
 	int enemy_id;
 	int enemy_KDS;
@@ -463,10 +448,8 @@ void Battle::PrintWarAftermath()
 	int total_FD = 0;
 	int total_KD = 0;
 
-	while (!Q_Killed.isEmpty())
+	while (Q_Killed.dequeue(pE))
 	{
-		
-		Q_Killed.dequeue(pE);
 		enemy_id = pE->GetID();
 		enemy_KDS = pE->getKillTime();
 		enemy_FD = pE->getFirstShotDelay();
@@ -476,9 +459,6 @@ void Battle::PrintWarAftermath()
 		total_KD += enemy_KD;
 
 		out << enemy_KDS << "\t" << enemy_id << "\t" << enemy_FD << "\t" << enemy_KD << "\t" << enemy_LT << endl;
-
-
-
 	}
 
 	double average_FD = (double)total_FD / EnemyCount;
@@ -487,7 +467,7 @@ void Battle::PrintWarAftermath()
 	if (battleStatus == "WIN")
 	{
 		out << "Total Enemies = " << EnemyCount << endl;
-
+		out << "Castle total damage = " << pC->GetAllHealth() - pC->GetHealth() << endl;
 	}
 	else
 	{
@@ -497,22 +477,14 @@ void Battle::PrintWarAftermath()
 
 	out << "Average First-Shot Delay = " << average_FD << endl;
 	out << "Average Kill Delay = " << average_KD << endl;
+
 	out.close();
 
-	if (pC->GetStatus() == DSTRD)
-	{
-		// game is lost
-	}
-	else
-	{
-		// game is won
-	}
 }
 
 void Battle::GUImode(PROG_MODE mode)
 {
 	
-	// to be implemented
 	if (mode == MODE_INTR)
 	{
 		RunMode("Interactive", 0);

@@ -105,6 +105,8 @@ public:
 	PROG_MODE getGUIMode() const;			//returns the mode of the program
 	void ClearStatusBar() const;    // clears the status bar
 	void DrawString(const int iX, const int iY, const string Text); // prints a message in the passed coordinates
+
+		
 };
 
 #endif

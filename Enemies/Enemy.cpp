@@ -104,6 +104,7 @@ int Enemy::getFreezingPriorty() const
 
 void Enemy::setFirstShot(int t)
 {
+	if (firstShot==-1)
 	firstShot = t;
 
 }

@@ -5,6 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::GUI()
 {
+
+	//DrawSplashScreen();
+
 	DrawingItemsCount = 0;
 	pWind = new window(WindWidth+15,WindHeight,0,0); 
 	pWind->ChangeTitle("The Castle Battle");
@@ -21,6 +24,12 @@ GUI::GUI()
 	RegionsLabels[ACTV] = "ACTV";
 	RegionsLabels[FRST] = "FRST";
 	RegionsLabels[KILD] = "KILD";
+
+	/*string image;
+	image = "beginScreen.jpg";
+	PlaySound("start.wav", NULL, SND_ASYNC);
+	pWind->DrawImage(image, 0, 0, WindWidth, WindHeight);
+	Sleep(7000);*/
 
 	ClearStatusBar();
 	ClearDrawingArea(); 
@@ -82,7 +91,6 @@ void GUI::DrawString(const int iX, const int iY, const string Text)
 	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
 	pWind->DrawString(iX, iY, Text);
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusBar() const
 {
