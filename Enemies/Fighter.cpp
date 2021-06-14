@@ -50,10 +50,7 @@ void Fighter::SetHealth(double h)
 		Health = 0; // killed
 }
 
-double Fighter::GetHealth() const
-{
-	return Health;
-}
+
 
 int Fighter::getPriorty() const
 {

@@ -48,6 +48,7 @@ public:
 	int GetArrvTime() const;
 	void setPower(int x);
 	void setHealth(int x);
+	double getHealth()const;
 	void decreaseHealth(int x);
 	void setRldPeriod(int x);
 	void setSpeed(int x);
@@ -60,6 +61,8 @@ public:
 	int getKillDelay()const;
 	int getFirstShotDelay()const;
 	int getFreezingPriorty()const;
+
+	void check(Enemy*, int);
 
 };
 

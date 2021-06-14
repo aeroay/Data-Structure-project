@@ -40,7 +40,3 @@ void Freezer::SetHealth(double h)
 		Health = 0; // killed
 }
 
-double Freezer::GetHealth() const
-{
-	return Health;
-}

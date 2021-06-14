@@ -103,11 +103,8 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			// set first shoot time step
 				pFtr->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
-			if (pFtr->GetHealth() <= 0)
-			{
-				pFtr->setKillTime(currTimeStep);
-				pFtr->SetStatus(KILD);
-			}
+				pFtr->check(pFtr, currTimeStep);
+			
 
 			ftrs.enPQueue(pFtr, pFtr->getPriorty());
 			
@@ -121,14 +118,11 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			// set first shoot time step
 				pHlr->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
-			if (pHlr->GetHealth() <= 0)
-			{
-				pHlr->setKillTime(currTimeStep);
-				pHlr->SetStatus(KILD);
+				pHlr->check(pHlr, currTimeStep);
 				// if healer distance less than 5, castle exploit its ability to increase its health
-				if (pHlr->GetDistance())
+				if (pHlr->GetDistance()&& pHlr->GetStatus()== KILD)
 					Health *= 1.03;
-			}
+			
 
 			hlrs.push(pHlr);
 			
@@ -142,11 +136,7 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			// set first shoot time step
 				pFrz->setFirstShot(currTimeStep);
 			// check if killed and set the needed actions
-			if (pFrz->GetHealth() <= 0)
-			{
-				pFrz->setKillTime(currTimeStep);
-				pFrz->SetStatus(KILD);
-			}
+				pFrz->check(pFrz, currTimeStep);
 
 			frzs.enqueue(pFrz);
 			

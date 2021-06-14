@@ -13,6 +13,6 @@ public:
     void March();
     bool IsFrozen();
     void SetHealth(double h);
-    double GetHealth() const;
+
 };
 

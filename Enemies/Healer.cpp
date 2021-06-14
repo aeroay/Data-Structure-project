@@ -38,8 +38,3 @@ void Healer::SetHealth(double h)
 	else
 		Health = 0; // killed
 }
-
-double Healer::GetHealth() const
-{
-	return Health;
-}

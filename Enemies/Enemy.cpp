@@ -75,6 +75,11 @@ void Enemy::setHealth(int x)
 	Health = x;
 }
 
+double Enemy::getHealth() const
+{
+	return Health;
+}
+
 void Enemy::setRldPeriod(int x)
 {
 	rldPeriod = x;
@@ -98,6 +103,17 @@ int Enemy::getFirstShotDelay() const
 int Enemy::getFreezingPriorty() const
 {
 	return 0;
+}
+
+void Enemy::check(Enemy* pE, int currTimeStep)
+{
+	if (pE->getHealth() <= 0)
+	{
+		pE->setKillTime(currTimeStep);
+		pE->SetStatus(KILD);
+	}
+
+
 }
 
 

@@ -25,11 +25,11 @@ GUI::GUI()
 	RegionsLabels[FRST] = "FRST";
 	RegionsLabels[KILD] = "KILD";
 
-	/*string image;
-	image = "beginScreen.jpg";
+	string image;
+	image = "eff.jpg";
 	PlaySound("start.wav", NULL, SND_ASYNC);
 	pWind->DrawImage(image, 0, 0, WindWidth, WindHeight);
-	Sleep(7000);*/
+	Sleep(7000);
 
 	ClearStatusBar();
 	ClearDrawingArea(); 
@@ -105,6 +105,7 @@ void GUI::ClearStatusBar() const
 void GUI::ClearDrawingArea() const
 {
 	// Clearing the Drawing area
+	//pWind->DrawImage("background.jpg", 0, MenuBarHeight, WindWidth, WindHeight - StatusBarHeight);
 	pWind->SetPen(BackgroundClr, 3);
 	pWind->SetBrush(BackgroundClr);
 	pWind->DrawRectangle(0, MenuBarHeight, WindWidth, WindHeight - StatusBarHeight);
