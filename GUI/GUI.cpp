@@ -6,7 +6,6 @@
 GUI::GUI()
 {
 
-	//DrawSplashScreen();
 
 	DrawingItemsCount = 0;
 	pWind = new window(WindWidth+15,WindHeight,0,0); 
@@ -25,11 +24,11 @@ GUI::GUI()
 	RegionsLabels[FRST] = "FRST";
 	RegionsLabels[KILD] = "KILD";
 
-	string image;
+	/*string image;
 	image = "eff.jpg";
 	PlaySound("start.wav", NULL, SND_ASYNC);
 	pWind->DrawImage(image, 0, 0, WindWidth, WindHeight);
-	Sleep(7000);
+	Sleep(7000);*/
 
 	ClearStatusBar();
 	ClearDrawingArea(); 

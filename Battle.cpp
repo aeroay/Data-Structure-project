@@ -263,7 +263,6 @@ void Battle::letTheHungerGamesBegin()
 	
 	// 1- castle shoot the enemy 
 	pCas->attackEnemies(Q_Fighter,Q_Freezer,S_Healer,CurrentTimeStep);
-
 	// 2- enemy shoot the castle 
 	for (int i = 0; i < getActv_E(); i++)
 	{
@@ -438,7 +437,6 @@ void Battle::PrintWarAftermath()
 
 
 	out << "Game is " + battleStatus << endl;
-	out << "KTS\tID\tFD\tKD\tLT" << endl;
 
 	int enemy_id;
 	int enemy_KDS;
@@ -447,6 +445,12 @@ void Battle::PrintWarAftermath()
 	int enemy_LT;
 	int total_FD = 0;
 	int total_KD = 0;
+
+	if (battleStatus == "WIN")
+	{
+	out << "KTS\tID\tFD\tKD\tLT" << endl;
+
+	
 
 	while (Q_Killed.dequeue(pE))
 	{
@@ -461,11 +465,9 @@ void Battle::PrintWarAftermath()
 		out << enemy_KDS << "\t" << enemy_id << "\t" << enemy_FD << "\t" << enemy_KD << "\t" << enemy_LT << endl;
 	}
 
-	double average_FD = (double)total_FD / EnemyCount;
-	double average_KD = (double)total_KD / EnemyCount;
+	
 
-	if (battleStatus == "WIN")
-	{
+	
 		out << "Total Enemies = " << EnemyCount << endl;
 		out << "Castle total damage = " << pC->GetAllHealth() - pC->GetHealth() << endl;
 	}
@@ -474,6 +476,9 @@ void Battle::PrintWarAftermath()
 		out << "Killed Enemies = " << KilledCount << endl;
 		out << "Alive Enemies = " << EnemyCount - KilledCount << endl;
 	}
+
+	double average_FD = (double)total_FD / EnemyCount;
+	double average_KD = (double)total_KD / EnemyCount;
 
 	out << "Average First-Shot Delay = " << average_FD << endl;
 	out << "Average Kill Delay = " << average_KD << endl;

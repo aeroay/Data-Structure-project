@@ -1,6 +1,5 @@
 #include "Castle.h"
 #include <cmath>
-#include <time.h>
 
 
 Castle::Castle()
@@ -70,14 +69,14 @@ void Castle::attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers
 
 	if (status == ACTIVE)
 	{
-		srand(time(0));
+		
 		int rnd = rand()%100 +1;
-		double prob = rnd / 100;
+		double prob = rnd / 100.0;
 
-		//if (100*prob> 20)
+		if (100*prob> 20)
 		shootBullets(fighters, freezers, healers, currTimeStep);
-		// else
-		//shootIce(fighters, freezers, healers, currTimeStep);
+		 else
+		shootIce(fighters, freezers, healers, currTimeStep);
 	}
 }
 
@@ -142,11 +141,9 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 			
 		}
 	}
-	/*
+	
 	PlaySound("shot.wav", NULL, SND_ASYNC);
-	* 
-	* 
-	*/
+	
 	for (int i = 0; i < maxShoot; i++)
 	{
 		if (!ftrs.isEmpty())
@@ -170,6 +167,6 @@ void Castle::shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers,
 }
 void Castle::shootIce(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep)
 {
-
+	PlaySound("frz.wav", NULL, SND_ASYNC);
 }
 
