@@ -34,9 +34,9 @@ public:
 	void SetPower(double p);
 	double GetPower() const;
 	void setMaxShoot(int max);
-	void attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep);
-	void shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, int currTimeStep);
-	void shootIce(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers,  int currTimeStep);
+	void attackEnemies(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, PQueue<Enemy*> &frosted, int currTimeStep);
+	void shootBullets(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, PQueue<Enemy*>& frosted, int currTimeStep);
+	void shootIce(PQueue<Fighter*>& fighters, Queue<Freezer*>& freezers, Stack<Healer*>& healers, PQueue<Enemy*>& frosted, int currTimeStep);
 
 };
 

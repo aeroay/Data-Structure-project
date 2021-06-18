@@ -144,9 +144,12 @@ void Battle::AddAllListsToDrawingList()
 	for (int i = 0; i < hlr; i++)
 		pGUI->AddToDrawingList(HealerList[i]);
 
+	int frstd;
+	Enemy* const* FrozenList = Q_Frozen.toArray(frstd);
+	for (int i = 0; i < frstd; i++)
+		pGUI->AddToDrawingList(FrozenList[i]);
 
-
-
+	
 
 
 	//Add other lists to drawing list
@@ -253,6 +256,7 @@ void Battle::letTheHungerGamesBegin()
 	Fighter* pFtr;
 	Freezer* pFrz;
 	Healer* pHlr;
+	Enemy* pE;
 	Castle* pCas = GetCastle();
 
 	updateNumbers();         //sets active/kiled/frosted enemies count
@@ -260,12 +264,82 @@ void Battle::letTheHungerGamesBegin()
 	PQueue<Fighter*> ftrs;
 	Queue<Freezer*> frzs;
 	Stack<Healer*> hlrs;
+	PQueue<Enemy*> frosted;		//Queue of frosted enemies 
 	
 	// 1- castle shoot the enemy 
-	pCas->attackEnemies(Q_Fighter,Q_Freezer,S_Healer,CurrentTimeStep);
+	pCas->attackEnemies(Q_Fighter,Q_Freezer,S_Healer, Q_Frozen,CurrentTimeStep);
+	// frozen 
+	while (Q_Frozen.dePQueue(pE))
+		{
+		pFtr = dynamic_cast<Fighter*>(pE);
+		pHlr = dynamic_cast<Healer*>(pE);
+		pFrz = dynamic_cast<Freezer*>(pE);
+
+			if (pE->getFreezingPriorty() == CurrentTimeStep)
+			{				
+				if (pFtr != NULL)
+				{
+					Q_Fighter.enPQueue(pFtr, pFtr->getPriorty());
+					Actv_Ftr++;
+					frosted_Ftr--;
+				}
+
+				if (pHlr != NULL)
+				{
+					S_Healer.push(pHlr);
+					frosted_Hlr--;
+					Actv_Hlr++;
+
+				}
+
+				if (pFrz != NULL)
+				{
+					Q_Freezer.enqueue(pFrz);
+					Actv_Frz++;
+					frosted_Frz--;
+				}
+
+			}
+			else
+			{
+				pE->marchTowardCastle();
+				pE->check(pE, CurrentTimeStep);
+					if (pE->GetStatus() == KILD)
+					{
+						Q_Killed.enqueue(pE);
+						if (pFtr != NULL)
+						{
+							Kld_Ftr++;
+							frosted_Ftr--;
+						}
+
+						if (pHlr != NULL)
+						{
+							frosted_Hlr--;
+							Kld_Hlr++;
+
+						}
+
+						if (pFrz != NULL)
+						{
+							Kld_Frz++;
+							frosted_Frz--;
+						}
+					}
+					else
+					{
+						frosted.enPQueue(pE, pE->getFreezingPriorty());
+					}
+				
+
+			}
+		}
+	
+	updateNumbers();
 	// 2- enemy shoot the castle 
-	for (int i = 0; i < getActv_E(); i++)
+	for (int i = 0; i < getActv_E() ; i++)
 	{
+
 		if (!Q_Fighter.isEmpty())
 		{
 			Q_Fighter.dePQueue(pFtr);
@@ -278,7 +352,7 @@ void Battle::letTheHungerGamesBegin()
 				ftrs.enPQueue(pFtr, pFtr->getPriorty());
 			}
 			
-		else if (pFtr->GetStatus() == KILD)
+			else if (pFtr->GetStatus() == KILD)
 			{
 				Q_Killed.enqueue(pFtr);
 				Kld_Ftr++;
@@ -300,7 +374,7 @@ void Battle::letTheHungerGamesBegin()
 				pHlr->March();
 				hlrs.push(pHlr);
 			}
-		else if (pHlr->GetStatus() == KILD)
+			else if (pHlr->GetStatus() == KILD)
 			{
 				Q_Killed.enqueue(pHlr);
 				Kld_Hlr++;
@@ -326,7 +400,7 @@ void Battle::letTheHungerGamesBegin()
 				pFrz->March();
 				frzs.enqueue(pFrz);
 			}
-		else if (pFrz->GetStatus() == KILD)
+			else if (pFrz->GetStatus() == KILD)
 			{
 				Q_Killed.enqueue(pFrz);
 				Actv_Frz--;
@@ -340,9 +414,11 @@ void Battle::letTheHungerGamesBegin()
 				frosted_Frz++;
 			}
 		}
+	
+
 	}
 	// return enemy to their orginal DS 
-	for (int i = 0; i < getActv_E(); i++)
+	for (int i = 0; i < getActv_E()+getFrz_E(); i++)
 	{
 		if (!ftrs.isEmpty())
 		{
@@ -360,8 +436,14 @@ void Battle::letTheHungerGamesBegin()
 			frzs.dequeue(pFrz);
 			Q_Freezer.enqueue(pFrz);
 		}
+		if (!frosted.isEmpty())
+		{
+			frosted.dePQueue(pE);
+			Q_Frozen.enPQueue(pE, pE->getFreezingPriorty());
+		}
 	}
-
+	
+	
 }
 
 
@@ -469,7 +551,8 @@ void Battle::PrintWarAftermath()
 
 	
 		out << "Total Enemies = " << EnemyCount << endl;
-		out << "Castle total damage = " << pC->GetAllHealth() - pC->GetHealth() << endl;
+		double damage = pC->GetAllHealth() - pC->GetHealth();
+		out << "Castle total damage = " << damage << (damage < 0 ? " (negative means that there is no damage, and castle gained this extra health from the healrs ability) \n":"\n");
 	}
 	else
 	{
@@ -575,6 +658,9 @@ void Battle::updateNumbers()
 
 	if (!Q_Freezer.isEmpty())
 	Q_Freezer.toArray(Actv_Frz);
+
+	if (!Q_Frozen.isEmpty())
+	Q_Frozen.toArray(FrostedCount);
 
 	setActv_E();
 	setFrz_E();

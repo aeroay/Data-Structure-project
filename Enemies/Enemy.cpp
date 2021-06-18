@@ -102,7 +102,12 @@ int Enemy::getFirstShotDelay() const
 
 int Enemy::getFreezingPriorty() const
 {
-	return 0;
+	return 2*frostTimeStep;
+}
+
+void Enemy::setFrostTimeStep(int t)
+{
+	frostTimeStep = t;
 }
 
 void Enemy::check(Enemy* pE, int currTimeStep)

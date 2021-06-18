@@ -30,7 +30,7 @@ protected:
 	//int LifeTime;					// total enemy life time = FD + KD 
 	int KillTimeStep;				// killing time step
 	int firstShot;
-
+	int frostTimeStep;
 
 
 public:
@@ -61,6 +61,7 @@ public:
 	int getKillDelay()const;
 	int getFirstShotDelay()const;
 	int getFreezingPriorty()const;
+	void setFrostTimeStep(int t);
 
 	void check(Enemy*, int);
 
